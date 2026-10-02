@@ -1,16 +1,21 @@
 package main
 
-// import (
-// 	"fmt"
-// 	"math_engine/lexer"
-// )
+import (
+	"fmt"
+	"math_engine/lexer"
+	"math_engine/parser"
+)
 
 func main() {
-	// source := "  +   +     +  "
-	// lexer := lexer.NewLexer(source)
-	// tokens := lexer.Lex()
+	source := "2 + 3 * 4"
+	tokens := lexer.NewLexer(source).Lex()
 
-	// // TODO: Implement tests
+	result, err := parser.NewParser(tokens).Parse()
 
-	// fmt.Println(tokens)
+	if err != nil {
+		fmt.Println("error:", err)
+		return
+	}
+
+	fmt.Println(result)
 }

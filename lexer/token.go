@@ -1,12 +1,12 @@
 package lexer
 
 type Token struct {
-	text string
-	kind TokenType
+	Text string
+	Kind TokenType
 }
 
 func NewToken(text string, kind TokenType) *Token {
-	return &Token{text: text, kind: kind}
+	return &Token{Text: text, Kind: kind}
 }
 
 type TokenType int
