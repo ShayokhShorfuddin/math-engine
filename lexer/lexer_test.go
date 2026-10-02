@@ -28,6 +28,14 @@ func TestLexer(t *testing.T) {
 			*NewToken("*", Asterisk),
 			*NewToken("/", Slash)},
 		},
+
+		{"whole numbers and decimal numbers", "123 456 789 3.1416 123.456", []Token{
+			*NewToken("123", Number),
+			*NewToken("456", Number),
+			*NewToken("789", Number),
+			*NewToken("3.1416", Number),
+			*NewToken("123.456", Number)},
+		},
 	}
 
 	for _, test := range tests {

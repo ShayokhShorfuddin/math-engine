@@ -13,6 +13,7 @@ type TokenType int
 
 const (
 	EOF TokenType = iota
+	Number
 
 	// Operators
 	Plus

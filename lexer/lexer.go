@@ -1,6 +1,9 @@
 package lexer
 
-import "strings"
+import (
+	"strings"
+	"unicode"
+)
 
 type Lexer struct {
 	source           []rune
@@ -58,15 +61,40 @@ func (lexer *Lexer) peek() rune {
 func (lexer *Lexer) getToken() Token {
 	var token Token
 
-	switch lexer.currentCharacter {
-	case '+':
+	switch {
+	case lexer.currentCharacter == '+':
 		token = *NewToken("+", Plus)
-	case '-':
+	case lexer.currentCharacter == '-':
 		token = *NewToken("-", Minus)
-	case '*':
+	case lexer.currentCharacter == '*':
 		token = *NewToken("*", Asterisk)
-	case '/':
+	case lexer.currentCharacter == '/':
 		token = *NewToken("/", Slash)
+	case unicode.IsDigit(lexer.currentCharacter):
+		startingPosition := lexer.currentPosition
+
+		for unicode.IsDigit(lexer.peek()) || lexer.peek() == '.' {
+			if lexer.peek() == '.' { // Decimal
+				lexer.nextChar()
+
+				// There must be at least one digit after the dot.
+				if !unicode.IsDigit(lexer.peek()) {
+					lexer.abort("Illegal character in number.")
+				}
+
+				for unicode.IsDigit(lexer.peek()) {
+					lexer.nextChar()
+				}
+			} else {
+				for unicode.IsDigit(lexer.peek()) {
+					lexer.nextChar()
+				}
+			}
+		}
+
+		numberText := lexer.source[startingPosition : lexer.currentPosition+1]
+		token = *NewToken(string(numberText), Number)
+
 	default:
 		lexer.abort("Unknown rune: " + string(lexer.currentCharacter))
 	}
