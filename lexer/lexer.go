@@ -18,7 +18,7 @@ func NewLexer(source string) *Lexer {
 func (lexer *Lexer) Lex() []Token {
 	var tokens []Token
 
-	for lexer.peek() != -1 {
+	for lexer.currentCharacter != -1 {
 		lexer.skipWhitespace()
 
 		if lexer.currentCharacter == -1 {

@@ -11,7 +11,6 @@ func main() {
 	tokens := lexer.Lex()
 
 	// TODO: Implement tests
-	// TODO: Upload to GitHub
 
 	fmt.Println(tokens)
 }
