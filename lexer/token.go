@@ -16,4 +16,7 @@ const (
 
 	// Operators
 	Plus
+	Minus
+	Asterisk
+	Slash
 )

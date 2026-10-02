@@ -1,6 +1,6 @@
 package lexer
 
-import "fmt"
+import "strings"
 
 type Lexer struct {
 	source           []rune
@@ -9,6 +9,7 @@ type Lexer struct {
 }
 
 func NewLexer(source string) *Lexer {
+	source = strings.TrimSpace(source)
 	lexer := &Lexer{source: []rune(source), currentPosition: -1, currentCharacter: 0} // Since rune cannot be '', 0 must be used.
 	lexer.nextChar()
 
@@ -17,6 +18,11 @@ func NewLexer(source string) *Lexer {
 
 func (lexer *Lexer) Lex() []Token {
 	var tokens []Token
+
+	// Return empty splice if source is blank ("")
+	if len(lexer.source) == 0 {
+		return []Token{}
+	}
 
 	for lexer.currentCharacter != -1 {
 		lexer.skipWhitespace()
@@ -52,16 +58,20 @@ func (lexer *Lexer) peek() rune {
 func (lexer *Lexer) getToken() Token {
 	var token Token
 
-	if lexer.currentCharacter == '+' {
+	switch lexer.currentCharacter {
+	case '+':
 		token = *NewToken("+", Plus)
-	} else {
-		fmt.Println(lexer.currentCharacter)
+	case '-':
+		token = *NewToken("-", Minus)
+	case '*':
+		token = *NewToken("*", Asterisk)
+	case '/':
+		token = *NewToken("/", Slash)
+	default:
 		lexer.abort("Unknown rune: " + string(lexer.currentCharacter))
 	}
 
 	lexer.nextChar()
-
-	fmt.Println(token)
 
 	return token
 }
