@@ -1,21 +1,9 @@
 package main
 
-import (
-	"fmt"
-	"math_engine/lexer"
-	"math_engine/parser"
-)
+import "math_engine/cmd"
 
 func main() {
-	source := "2 + 3 * 4"
-	tokens := lexer.NewLexer(source).Lex()
+	cmd.Execute()
 
-	result, err := parser.NewParser(tokens).Parse()
-
-	if err != nil {
-		fmt.Println("error:", err)
-		return
-	}
-
-	fmt.Println(result)
+	// TODO: Write Readme
 }

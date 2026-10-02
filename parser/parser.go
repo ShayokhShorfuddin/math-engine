@@ -136,6 +136,6 @@ func (parser *Parser) nextToken() {
 	}
 }
 
-func (lexer *Parser) abort(message string) {
+func (parser *Parser) abort(message string) {
 	panic(message)
 }
