@@ -1,16 +1,16 @@
 package main
 
-import (
-	"fmt"
-	"math_engine/lexer"
-)
+// import (
+// 	"fmt"
+// 	"math_engine/lexer"
+// )
 
 func main() {
-	source := "  +   +     +  "
-	lexer := lexer.NewLexer(source)
-	tokens := lexer.Lex()
+	// source := "  +   +     +  "
+	// lexer := lexer.NewLexer(source)
+	// tokens := lexer.Lex()
 
-	// TODO: Implement tests
+	// // TODO: Implement tests
 
-	fmt.Println(tokens)
+	// fmt.Println(tokens)
 }

@@ -73,22 +73,20 @@ func (lexer *Lexer) getToken() Token {
 	case unicode.IsDigit(lexer.currentCharacter):
 		startingPosition := lexer.currentPosition
 
-		for unicode.IsDigit(lexer.peek()) || lexer.peek() == '.' {
-			if lexer.peek() == '.' { // Decimal
+		for unicode.IsDigit(lexer.peek()) {
+			lexer.nextChar()
+		}
+
+		if lexer.peek() == '.' { // Decimal
+			lexer.nextChar()
+
+			// There must be at least one digit after the dot.
+			if !unicode.IsDigit(lexer.peek()) {
+				lexer.abort("Illegal character in number.")
+			}
+
+			for unicode.IsDigit(lexer.peek()) {
 				lexer.nextChar()
-
-				// There must be at least one digit after the dot.
-				if !unicode.IsDigit(lexer.peek()) {
-					lexer.abort("Illegal character in number.")
-				}
-
-				for unicode.IsDigit(lexer.peek()) {
-					lexer.nextChar()
-				}
-			} else {
-				for unicode.IsDigit(lexer.peek()) {
-					lexer.nextChar()
-				}
 			}
 		}
 
