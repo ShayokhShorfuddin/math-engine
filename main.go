@@ -4,6 +4,4 @@ import "math_engine/cmd"
 
 func main() {
 	cmd.Execute()
-
-	// TODO: Write Readme
 }
